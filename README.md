@@ -21,4 +21,6 @@ In other words, Graphite is **small, fast, and easy to use**, while still suppor
 ## Roadmap
 - Automatic collection injection (`List<T>` / `Set<T>`).
 - Write examples and documentation on Graphite
+- Write unit tests
 - Publish to Maven Central.
+- Add support for factory scopes & session scopes
