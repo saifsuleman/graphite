@@ -32,7 +32,15 @@ class Injector private constructor(
                 register(node.instance, node.primary)
             }
 
-        for (node in graph.resolve()) {
+        graph.named
+            .filterValues { it is DependencyNode.Prebuilt }
+            .mapValues { it.value as DependencyNode.Prebuilt }
+            .forEach { (name, node) ->
+                register(name, node.instance, node.primary)
+            }
+
+        var resolved = graph.resolve()
+        for (node in resolved) {
             runCatching {
                 construct(node)
             }
@@ -121,9 +129,14 @@ class Injector private constructor(
     fun child(vararg modules: Module): Injector =
         Injector(this, modules.toList())
 
+    fun child(module: Module): Injector
+        = Injector(this, listOf(module))
+
     companion object {
         fun create(vararg modules: Module): Injector =
             Injector(null, modules.toList())
+
+        fun create(module: Module): Injector = Injector(null, listOf(module))
     }
 }
 

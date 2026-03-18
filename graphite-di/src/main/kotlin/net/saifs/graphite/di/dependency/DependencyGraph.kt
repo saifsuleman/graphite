@@ -32,7 +32,6 @@ class DependencyGraph private constructor(
                     is BindingDeclaration.NamedBinding -> {
                         conflict(declaration.name, named[declaration.name], parent?.lookup(declaration.name))
                         val node = DependencyNode.Prebuilt(declaration.instance::class, declaration.instance, declaration.primary)
-                        nodes[declaration.instance::class] = node
                         named[declaration.name] = node
                     }
                     is BindingDeclaration.TypeBinding -> {

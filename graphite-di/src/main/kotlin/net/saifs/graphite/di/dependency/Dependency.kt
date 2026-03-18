@@ -14,4 +14,19 @@ sealed interface Dependency {
         val name: String,
         override val optional: Boolean
     ) : Dependency
+
+    data class Collection(
+        val type: KClass<*>,
+        override val optional: Boolean
+    ) : Dependency
+
+    data class LazyTyped(
+        val type: KClass<*>,
+        override val optional: Boolean
+    ) : Dependency
+
+    data class LazyNamed(
+        val name: String,
+        override val optional: Boolean
+    ) : Dependency
 }
